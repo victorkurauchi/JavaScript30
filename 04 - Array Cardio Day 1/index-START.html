@@ -31,17 +31,45 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const result1 = inventors.filter(investor => investor.year >= 1500 && investor.year < 1600);
+    console.info('Result 1');
+    console.table(result1)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const result2 = inventors.map(investor => `${investor.first} ${investor.last}`);
+    console.info('Result 2');
+    console.table(result2)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const result3 = inventors.sort((a, b) => {
+      const inventorABirth = a.year;
+      const inventorBBirth = b.year;
+
+      return inventorBBirth > inventorABirth ? -1 : 1;
+    })
+    console.info('Result 3');
+    console.table(result3);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const reducer = (accumulator, val) => {
+      return accumulator + (val.passed - val.year)
+    }
+    console.info('Result 4');
+    console.log(inventors.reduce(reducer, 0));
 
     // 5. Sort the inventors by years lived
+    const result5 = inventors.sort((a, b) => {
+      const inventorALived = a.passed - a.year;
+      const inventorBLived = b.passed - b.year;
+
+      return inventorALived > inventorBLived ? 1 : -1;
+    })
+
+    console.info('Result 5');
+    console.table(result5);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -49,10 +77,42 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const result7 = people.sort((a, b) => {
+      let lastnameA = a.split(', ')[1];
+      let lastnameB = b.split(', ')[1];
+      let nameA = lastnameA.toUpperCase(); // ignore upper and lowercase
+      let nameB = lastnameB.toUpperCase();
+
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    })
+
+    console.info('Result 7');
+    console.table(result7)
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const carReducer = (accumulator, val) => {
+      if (!accumulator[val]) {
+        accumulator[val] = 0;
+      }
+
+      accumulator[val] ++;
+
+      return accumulator;
+    };
+
+    const result8 = data.reduce(carReducer, {});
+    console.info('Result 8');
+    console.log(result8);
 
   </script>
 </body>
