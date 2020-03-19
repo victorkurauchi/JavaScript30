@@ -22,6 +22,18 @@
 
   <style>
 
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +57,41 @@
   </style>
 
   <script>
+    let root = document.documentElement;
+
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate() {
+      const sizing = this.dataset.sizing || '';
+      const value = this.value;
+
+      root.style.setProperty(`--${this.name}`, `${value}${sizing}`);
+
+    }
+
+    inputs.forEach(input => input.addEventListener('input', handleUpdate))
+
+    // const inputSpacing = document.getElementById('spacing');
+    // const inputBlur = document.getElementById('blur');
+    // const inputColor = document.getElementById('base');
+    
+    // inputSpacing.addEventListener('input', event => {
+    //   const padding = event.target.value;
+    //   const sizing = inputSpacing.dataset['sizing'];
+    //   root.style.setProperty('--spacing', `${padding}${sizing}`);
+    // })
+
+    // inputBlur.addEventListener('input', event => {
+    //   const blur = event.target.value;
+    //   const sizing = inputSpacing.dataset['sizing'];
+    //   root.style.setProperty('--blur', `${blur}${sizing}`);
+    // })
+
+    // inputColor.addEventListener('input', event => {
+    //   const color = event.target.value;
+    //   root.style.setProperty('--base', color);
+    // })
+
   </script>
 
 </body>
