@@ -45,6 +45,11 @@ function toggleFullScreen() {
   }
 }
 
+function updateProgressBar(e) {
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime;
+}
+
 // hook events
 toggleButton.addEventListener('click', handlePause)
 fullscreen.addEventListener('click', toggleFullScreen);
@@ -56,3 +61,9 @@ video.addEventListener('timeupdate', handleTimeUpdate);
 skipButtons.forEach(button => button.addEventListener('click', handleSkip))
 
 rangeButtons.forEach(button => button.addEventListener('click', handleRange))
+
+let mousedown = false;
+progress.addEventListener('click', updateProgressBar);
+progress.addEventListener('mousemove', (e) => mousedown && updateProgressBar(e));
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = false);
